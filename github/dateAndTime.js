@@ -1,8 +1,9 @@
 window.onload = function() {
   var dateAndTime = dateAndTime_();
 
-  var pElement = document.getElementById("body");
-  var upElement = document.getElementById("iframeWrapper");
+  var pElement = document.body;
+  // var pElement = document.getElementById("iframe");
+  var upElement = document.getElementById("iframeGoogle");
 
   var newElement = document.createElement("iframe"); // iframe要素作成
   newElement.setAttribute("src","github/submit.html?dateAndTime=" + dateAndTime);
@@ -20,6 +21,7 @@ window.onload = function() {
   newElement2.setAttribute("allowfullscreen","");
   pElement.insertBefore(newElement2, newElement.nextSibling);
 
+  // id_n
 }
 
 function toDoubleDigits (num) {
