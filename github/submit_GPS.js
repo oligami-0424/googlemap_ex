@@ -6,23 +6,29 @@ window.onload = function() {
 
 async function submitForm (formdata) {
   // form を動的に生成
-  var form = document.createElement('form');
-  form.action = 'http://oligami3.starfree.jp/save_GPS.php';
-  form.method = 'GET';
+  // var form = document.createElement('form');
+  // form.action = 'http://oligami3.starfree.jp/save_GPS.php';
+  // form.method = 'GET';
 
   // body に追加
-  document.body.append(form);
+  // document.body.append(form);
   // formdata イベントに関数を登録(submit する直前に発火)
-  form.addEventListener('formdata', (e) => {
-    var fd = e.formData;
+  // form.addEventListener('formdata', (e) => {
+  //   var fd = e.formData;
+  //
+  //   // データをセット
+  //   for (var key in formdata) fd.set(key, formdata[key]);
+  //   fd.set('dateAndTime', getParameter()["dateAndTime"]);
+  // });
 
-    // データをセット
-    for (var key in formdata) fd.set(key, formdata[key]);
-    fd.set('dateAndTime', getParameter()["dateAndTime"]);
-  });
+  var url = 'http://oligami3.starfree.jp/save_GPS.php?';
+  for (var key in formdata) url = url + key + '=' + formdata[key] + '&';
+  url += 'dateAndTime=' + getParameter()["dateAndTime"];
+  console.log(url);
+  fetch(url);
 
   // submit
-  form.submit();
+  // form.submit();
 }
 
 // 成功した時の関数

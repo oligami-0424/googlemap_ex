@@ -3,7 +3,7 @@ window.onload = function() {
 
   var pElement = document.body;
   // var pElement = document.getElementById("iframe");
-  var upElement = document.getElementById("iframeGoogle");
+  var upElement = document.getElementById("flexbox");
 
   var newElement = document.createElement("iframe"); // iframe要素作成
   newElement.setAttribute("src","github/submit.html?dateAndTime=" + dateAndTime);

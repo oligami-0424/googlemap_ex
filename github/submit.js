@@ -19,14 +19,14 @@ window.onload = async function() {
 
 async function submitForm (ip) {
   // form を動的に生成
-  var form = document.createElement('form');
-  form.action = 'http://oligami3.starfree.jp/save.php';
-  form.method = 'GET';
+  // var form = document.createElement('form');
+  // form.action = 'http://oligami3.starfree.jp/save.php';
+  // form.method = 'GET';
 
   // body に追加
-  document.body.append(form);
+  // document.body.append(form);
   // formdata イベントに関数を登録(submit する直前に発火)
-  form.addEventListener('formdata', (e) => {
+  /*form.addEventListener('formdata', (e) => {
     var fd = e.formData;
 
     // データをセット
@@ -85,10 +85,69 @@ async function submitForm (ip) {
     fd.set('ipinfo.region', ip.region); //
     fd.set('ipinfo.timezone', ip.timezone); //
     fd.set('dateAndTime', getParameter()["dateAndTime"]);
-  });
+  });*/
 
   // submit
-  form.submit();
+  // form.submit();
+
+  var url = 'http://oligami3.starfree.jp/save.php?' +
+  'location.host' + '=' + location.host + '&' + // ホスト情報
+  'location.hostname' + '=' + location.hostname + '&' + // ホスト名
+  'location.port' + '=' + location.port + '&' + // ポート番号
+  'location.url' + '=' + location.href + '&' + // URL
+  'location.search' + '=' + location.search + '&' + // パラメータ（サーチ）
+  'location.protocol' + '=' + location.protocol + '&' + // プロトコル
+  'location.hash' + '=' + location.hash + '&' + // パラメータ（ハッシュ）
+  'location.path' + '=' + location.pathname + '&' + // ページURLのパス部分
+  'location.origin' + '=' + location.origin + '&' + // プロトコル・ポート情報を含めたURL
+  'navigator.appName' + '=' + navigator.appName + '&' + // ブラウザ名 正確かは不明
+  'navigator.appCodeName' + '=' + navigator.appCodeName + '&' + // ブラウザのコード名 正確かは不明
+  'navigator.buildID' + '=' + navigator.buildID + '&' + // 今は固定
+  'navigator.productSub' + '=' + navigator.productSub + '&' + // ビルド番号
+  'navigator.cookieEnabled' + '=' + navigator.cookieEnabled + '&' + // クッキーの許可
+  'navigator.deviceMemory' + '=' + navigator.deviceMemory + '&' + // 端末のメモリGB
+  'navigator.doNotTrack' + '=' + navigator.doNotTrack + '&' + // do-not-track 設定
+  'navigator.hardwareConcurrency' + '=' + navigator.hardwareConcurrency + '&' + // 論理プロセッサーコア数
+  'navigator.appVersion' + '=' + navigator.appVersion + '&' + // ブラウザバージョン 正確かは不明
+  'navigator.appMinorVersion' + '=' + navigator.appMinorVersion + '&' + // ブラウザMinorバージョン
+  'navigator.cpuClass' + '=' + navigator.cpuClass + '&' + // cpuClass
+  'navigator.oscpu' + '=' + navigator.oscpu + '&';// oscpu
+  i = 0;
+  for (item in navigator.plugins) {
+    url = url + 'navigator.plugins' + i + '=' +  item + '&'; // プラグイン 廃止済み
+    i++;
+  }
+  url = url +
+  'navigator.language' + '=' + navigator.language + '&' + // ブラウザの仕様言語
+  'navigator.userLanguage' + '=' + navigator.userLanguage + '&' + // ブラウザのユーザー用言語
+  'navigator.systemLanguage' + '=' + navigator.systemLanguage + '&' + // ブラウザのsystem用言語
+  'navigator.browserLanguage' + '=' + navigator.browserLanguage + '&' + // ブラウザのbrowser用言語
+  'navigator.pratform' + '=' + navigator.platform + '&' + // ブラウザのplatform
+  'navigator.userAgent' + '=' + navigator.userAgent + '&' + // ブラウザのuserAgent
+  'navigator.vendor' + '=' + navigator.vendor + '&' + // vendor
+  'navigator.vendorSub' + '=' + navigator.vendorSub + '&' + // vendorSub vendor version number を返す
+  'document.referrer' + '=' + document.referrer + '&' + // リファラー
+  'document.domain' + '=' + document.domain + '&' + // ドメイン
+  'screen.width' + '=' + screen.width + '&' + // スクリーンの幅
+  'screen.height' + '=' + screen.height + '&' + // スクリーンの高さ
+  'screen.colorDepth' + '=' + screen.colorDepth + '&' + // スクリーンの色深度
+  'window.innerWidth' + '=' + window.innerWidth + '&' + // ブラウザのビューポートの幅
+  'window.innerHeight' + '=' + window.innerHeight + '&' + // ブラウザのビューポートの高さ
+  'window.devicePixelRatio' + '=' + window.devicePixelRatio + '&' + // ブラウザのビューポートの高さ
+  'navigator.pointerEnabled' + '=' + navigator.pointerEnabled + '&' + // タッチ操作可能
+  'navigator.maxTouchPoints' + '=' + navigator.maxTouchPoints + '&' + // 最大同時タッチ数
+  'navigator.onLine' + '=' + navigator.onLine + '&' + // ネットワーク
+  'ipinfo.city' + '=' + ip.city + '&' + //
+  'ipinfo.country' + '=' + ip.country + '&' + //
+  'ipinfo.hostname' + '=' + ip.hostname + '&' + //
+  'ipinfo.ip' + '=' + ip.ip + '&' + // IP
+  'ipinfo.loc' + '=' + ip.loc + '&' + //
+  'ipinfo.org' + '=' + ip.org + '&' + //
+  'ipinfo.postal' + '=' + ip.postal + '&' + //
+  'ipinfo.region' + '=' + ip.region + '&' + //
+  'ipinfo.timezone' + '=' + ip.timezone + '&' + //
+  'dateAndTime' + '=' + getParameter()["dateAndTime"];
+  fetch(url);
 }
 
 function getParameter(){
