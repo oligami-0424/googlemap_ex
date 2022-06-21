@@ -155,7 +155,7 @@ function successFunc (position) {
     'position.coords.heading': position.coords.heading, // 方角
     'position.coords.speed': position.coords.speed, // 速度
     'position.timestanp': position.timestanp, // 速度
-    'dateAndTime': getParameter()["dateAndTime"],
+    'dateAndTime': dateAndTime_(),
   });
 }
 
